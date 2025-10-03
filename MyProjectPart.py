@@ -1,5 +1,5 @@
 #number of hours worked regular + overtime
-def Caculate_gross_pay(hours_worked):
+def caculate_gross_pay(hours_worked):
     MONEY_PER_HOUR = 10
     HOURS_WORKED_BEFOR_OVERTIME = 40
     OVERTIME = 1.5
