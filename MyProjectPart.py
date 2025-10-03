@@ -1,25 +1,40 @@
+#number of hours worked regular + overtime
+def Caculate_gross_pay(hours_worked):
+    MONEY_PER_HOUR = 10
+    HOURS_WORKED_BEFOR_OVERTIME = 40
+    OVERTIME = 1.5
+    print("hours_worked", hours_worked)
+
+    #only regular amount worked
+    regular_hours_worked = hours_worked
+    if hours_worked > HOURS_WORKED_BEFOR_OVERTIME:
+        regular_hours_worked = HOURS_WORKED_BEFOR_OVERTIME
+    print("regular_hours_worked", regular_hours_worked)
+
+    #overtime worked
+    over_time_hours_worked  = 0
+    if hours_worked > HOURS_WORKED_BEFOR_OVERTIME :
+        over_time_hours_worked = hours_worked - HOURS_WORKED_BEFOR_OVERTIME
+    print("over_time_hours_worked", over_time_hours_worked)
 
 
-"""
-carson part implment the following functions below
-"""
-
-def caculate_gross_pay(hours_worked):
-    # make fucntion work
-    # return gros pay
-    pass
-
+    gross_pay_amount = regular_hours_worked * MONEY_PER_HOUR
+    overtime_payment =  over_time_hours_worked * MONEY_PER_HOUR * OVERTIME
+    return gross_pay_amount + overtime_payment
 
 def caculate_pre_tax_amount(amount):
-    # make fucntion work
-    # return pre tac amount
-    pass
+    return amount
 
 
 def caculate_post_tax_amount(amount):
-    # make fucntion work
-    # return post tax amount
-    pass
+    STATE_TAXES = 5.6
+    FEDERAL_TAXES = 7.9
+    state_deductions = amount * (STATE_TAXES / 100)
+    federal_deductions = amount * (FEDERAL_TAXES / 100)
+
+
+    return amount - state_deductions - federal_deductions
+
 
 
 
