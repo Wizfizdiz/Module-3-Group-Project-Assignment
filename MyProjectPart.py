@@ -51,19 +51,32 @@ pre_tax_amount = caculate_pre_tax_amount(gross_pay)
 
 post_tax_amount = caculate_post_tax_amount(gross_pay)
 
-""""
-Guangmei
 
-Save your results into a list, or separate lists/arrays
-Print the results on the screen for the user
-Record your results in a file. This does not have to be done by the program...this can be manual, but would probably be easier just to have the program save it in a file.
 
-"""
-
-results = {
-    
+# Use nested dictionary variable to store employees' information
+employees = {}
+employees[employ_id] = {
+    "first name": employ_first_name,
+    "last anme": employ_last_name,
+    "number of dependents": employ_number_of_dependent,
+    "hours worked": employ_hours_worked,
+    "gross pay": gross_pay,
+    "pre-tax amount": pre_tax_amount,
+    "post-tax amount": post_tax_amount
 }
 
+# Output each employee's information
+print("\nEmployee List:")
+for eid, info in employees.items():
+    print(f"ID: {eid}\n"
+          f"first name: {info['first name']}\n"
+          f"last name: {info['last anme']}\n"
+          f"number of dependents: {info['number of dependents']}\n"
+          f"hours worked: {info['hours worked']}\n"
+          f"gross pay: ${info['gross pay']:,.2f}\n"
+          f"pre-tax amount: ${info['pre-tax amount']:,.2f}\n"
+          f"post-tax amount: ${info['post-tax amount']:,.2f}\n\n"
+          )
 
 
 
