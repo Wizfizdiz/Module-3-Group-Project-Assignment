@@ -25,6 +25,30 @@ def calculate_post_tax_amount(amount):
     federal_deduction = amount * (FEDERAL_TAX / 100)
     return amount - state_deduction - federal_deduction
 
+def validate_number(prompt):
+    while True: 
+        user_input = input(prompt)
+        if user_input.isnumeric():
+            return int(user_input)
+        else:
+            print("can only input numbers try again")
+
+def validate_letter(prompt):
+    while True: 
+        user_input = input(prompt)
+        if user_input.isalpha():
+            return user_input
+        else:
+            print("can only input letters try again")
+
+def validate_input(prompt):
+    while True: 
+        user_input = input(prompt)
+        if len(user_input) > 0:
+            return user_input
+        else:
+            print("input can not be empty try agian")
+
 
 # Create dictionary to store multiple employees
 employees = {}
@@ -32,11 +56,11 @@ employees = {}
 # Start loop to enter employee data
 while True:
     print("\nEnter Employee Information:")
-    first_name = input("First name: ")
-    last_name = input("Last name: ")
-    emp_id = input("Employee ID: ")
-    dependents = int(input("Number of dependents: "))
-    hours_worked = int(input("Hours worked: "))
+    first_name = validate_letter("First name: ")
+    last_name = validate_letter("Last name: ")
+    emp_id = validate_input("Employee ID: ")
+    dependents = validate_number("Number of dependents: ")
+    hours_worked = validate_number("Hours worked: ")
 
     # Calculations
     gross_pay = calculate_gross_pay(hours_worked)
@@ -55,7 +79,7 @@ while True:
     }
 
     # Ask user if they want to continue
-    another = input("\nWould you like to enter another employee? (yes/no): ").strip().lower()
+    another = validate_letter("\nWould you like to enter another employee? (yes/no): ").strip().lower()
     if another != "yes":
         break
 
