@@ -3,13 +3,13 @@ def calculate_gross_pay(hours_worked):
     HOURS_WORKED_BEFORE_OVERTIME = 40
     OVERTIME_RATE = 1.5
 
-    if hours_worked > HOURS_WORKED_BEFOR_OVERTIME:
     # Regular and overtime hours
     regular_hours = min(hours_worked, HOURS_WORKED_BEFORE_OVERTIME)
     overtime_hours = max(0, hours_worked - HOURS_WORKED_BEFORE_OVERTIME)
 
     # Pay calculations
     gross_pay = (regular_hours * MONEY_PER_HOUR) + (overtime_hours * MONEY_PER_HOUR * OVERTIME_RATE)
+    return gross_pay
 
 
 def calculate_pre_tax_amount(amount):
