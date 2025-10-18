@@ -78,9 +78,17 @@ for eid, info in employees.items():
           f"post-tax amount: ${info['post-tax amount']:,.2f}\n\n"
           )
 
-
-
-
-
+# Save employee information to a text file
+with open("employees.txt", "w") as file:
+    for eid, info in employees.items():
+        file.write(f"ID: {eid}\n"
+                   f"first name: {info['first name']}\n"
+                   f"last name: {info['last name']}\n"
+                   f"number of dependents: {info['number of dependents']}\n"
+                   f"hours worked: {info['hours worked']}\n"
+                   f"gross pay: ${info['gross pay']:,.2f}\n"
+                   f"pre-tax amount: ${info['pre-tax amount']:,.2f}\n"
+                   f"post-tax amount: ${info['post-tax amount']:,.2f}\n\n")
+print("Employee information has been saved to employees.txt.")
 
 
