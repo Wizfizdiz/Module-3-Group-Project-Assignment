@@ -52,6 +52,42 @@ def validate_input(prompt):
 
 # Create dictionary to store multiple employees
 employees = {}
+employees[employ_id] = {
+    "first name": employ_first_name,
+    "last anme": employ_last_name,
+    "number of dependents": employ_number_of_dependent,
+    "hours worked": employ_hours_worked,
+    "gross pay": gross_pay,
+    "pre-tax amount": pre_tax_amount,
+    "post-tax amount": post_tax_amount
+}
+
+# Output each employee's information
+print("\nEmployee List:")
+for eid, info in employees.items():
+    print(f"ID: {eid}\n"
+          f"first name: {info['first name']}\n"
+          f"last name: {info['last anme']}\n"
+          f"number of dependents: {info['number of dependents']}\n"
+          f"hours worked: {info['hours worked']}\n"
+          f"gross pay: ${info['gross pay']:,.2f}\n"
+          f"pre-tax amount: ${info['pre-tax amount']:,.2f}\n"
+          f"post-tax amount: ${info['post-tax amount']:,.2f}\n\n"
+          )
+
+# Save employee information to a text file
+with open("employees.txt", "w") as file:
+    for eid, info in employees.items():
+        file.write(f"ID: {eid}\n"
+                   f"first name: {info['first name']}\n"
+                   f"last name: {info['last name']}\n"
+                   f"number of dependents: {info['number of dependents']}\n"
+                   f"hours worked: {info['hours worked']}\n"
+                   f"gross pay: ${info['gross pay']:,.2f}\n"
+                   f"pre-tax amount: ${info['pre-tax amount']:,.2f}\n"
+                   f"post-tax amount: ${info['post-tax amount']:,.2f}\n\n")
+print("Employee information has been saved to employees.txt.")
+
 
 # Start loop to enter employee data
 while True:
