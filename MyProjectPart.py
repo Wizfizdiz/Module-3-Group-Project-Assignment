@@ -1,59 +1,56 @@
-#number of hours worked regular + overtime
-def caculate_gross_pay(hours_worked):
+def calculate_gross_pay(hours_worked):
     MONEY_PER_HOUR = 10
-    HOURS_WORKED_BEFOR_OVERTIME = 40
-    OVERTIME = 1.5
-    print("hours_worked", hours_worked)
+    HOURS_WORKED_BEFORE_OVERTIME = 40
+    OVERTIME_RATE = 1.5
 
-    #only regular amount worked
-    regular_hours_worked = hours_worked
-    if hours_worked > HOURS_WORKED_BEFOR_OVERTIME:
-        regular_hours_worked = HOURS_WORKED_BEFOR_OVERTIME
-    print("regular_hours_worked", regular_hours_worked)
+    # Regular and overtime hours
+    regular_hours = min(hours_worked, HOURS_WORKED_BEFORE_OVERTIME)
+    overtime_hours = max(0, hours_worked - HOURS_WORKED_BEFORE_OVERTIME)
 
-    #overtime worked
-    over_time_hours_worked  = 0
-    if hours_worked > HOURS_WORKED_BEFOR_OVERTIME :
-        over_time_hours_worked = hours_worked - HOURS_WORKED_BEFOR_OVERTIME
-    print("over_time_hours_worked", over_time_hours_worked)
+    # Pay calculations
+    gross_pay = (regular_hours * MONEY_PER_HOUR) + (overtime_hours * MONEY_PER_HOUR * OVERTIME_RATE)
+    return gross_pay
 
 
-    gross_pay_amount = regular_hours_worked * MONEY_PER_HOUR
-    overtime_payment =  over_time_hours_worked * MONEY_PER_HOUR * OVERTIME
-    return gross_pay_amount + overtime_payment
-
-def caculate_pre_tax_amount(amount):
-    return amount
+def calculate_pre_tax_amount(amount):
+    RETIREMENT_DEDUCTION = 3.0  # percent
+    deduction = amount * (RETIREMENT_DEDUCTION / 100)
+    return amount - deduction
 
 
-def caculate_post_tax_amount(amount):
-    STATE_TAXES = 5.6
-    FEDERAL_TAXES = 7.9
-    state_deductions = amount * (STATE_TAXES / 100)
-    federal_deductions = amount * (FEDERAL_TAXES / 100)
+def calculate_post_tax_amount(amount):
+    STATE_TAX = 5.6
+    FEDERAL_TAX = 7.9
+    state_deduction = amount * (STATE_TAX / 100)
+    federal_deduction = amount * (FEDERAL_TAX / 100)
+    return amount - state_deduction - federal_deduction
+
+def validate_number(prompt):
+    while True: 
+        user_input = input(prompt)
+        if user_input.isnumeric():
+            return int(user_input)
+        else:
+            print("can only input numbers try again")
+
+def validate_letter(prompt):
+    while True: 
+        user_input = input(prompt)
+        if user_input.isalpha():
+            return user_input
+        else:
+            print("can only input letters try again")
+
+def validate_input(prompt):
+    while True: 
+        user_input = input(prompt)
+        if len(user_input) > 0:
+            return user_input
+        else:
+            print("input can not be empty try agian")
 
 
-    return amount - state_deductions - federal_deductions
-
-
-
-
-
-employ_first_name = input("What is your first name ? ")
-employ_last_name =  input("what is yout last name ? ")
-employ_id = input("What is your ID ? ")
-employ_number_of_dependent = int(input("What is your number of dependent "))
-employ_hours_worked = int(input("How many hours have your worked "))
-
-gross_pay = caculate_gross_pay(employ_hours_worked)
-
-pre_tax_amount = caculate_pre_tax_amount(gross_pay)
-
-post_tax_amount = caculate_post_tax_amount(gross_pay)
-
-
-
-# Use nested dictionary variable to store employees' information
+# Create dictionary to store multiple employees
 employees = {}
 employees[employ_id] = {
     "first name": employ_first_name,
@@ -92,3 +89,47 @@ with open("employees.txt", "w") as file:
 print("Employee information has been saved to employees.txt.")
 
 
+# Start loop to enter employee data
+while True:
+    print("\nEnter Employee Information:")
+    first_name = validate_letter("First name: ")
+    last_name = validate_letter("Last name: ")
+    emp_id = validate_input("Employee ID: ")
+    dependents = validate_number("Number of dependents: ")
+    hours_worked = validate_number("Hours worked: ")
+
+    # Calculations
+    gross_pay = calculate_gross_pay(hours_worked)
+    pre_tax_amount = calculate_pre_tax_amount(gross_pay)
+    post_tax_amount = calculate_post_tax_amount(pre_tax_amount)
+
+    # Store employee info
+    employees[emp_id] = {
+        "first name": first_name,
+        "last name": last_name,
+        "dependents": dependents,
+        "hours worked": hours_worked,
+        "gross pay": gross_pay,
+        "pre-tax amount": pre_tax_amount,
+        "post-tax amount": post_tax_amount
+    }
+
+    # Ask user if they want to continue
+    another = validate_letter("\nWould you like to enter another employee? (yes/no): ").strip().lower()
+    if another != "yes":
+        break
+
+
+# Display all employee information
+print("\n=== Employee List ===")
+for eid, info in employees.items():
+    print(f"""
+ID: {eid}
+First Name: {info['first name']}
+Last Name: {info['last name']}
+Dependents: {info['dependents']}
+Hours Worked: {info['hours worked']}
+Gross Pay: ${info['gross pay']:,.2f}
+Pre-Tax Amount: ${info['pre-tax amount']:,.2f}
+Post-Tax Amount: ${info['post-tax amount']:,.2f}
+""")
