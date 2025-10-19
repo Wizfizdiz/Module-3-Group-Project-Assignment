@@ -1,0 +1,18 @@
+ID: 223
+first name: wisdom
+last name: kareem
+number of dependents: 1
+hours worked: 12
+gross pay: $120.00
+pre-tax amount: $116.40
+post-tax amount: $100.69
+
+ID: 2
+first name: zack
+last name: jack
+number of dependents: 34
+hours worked: 2
+gross pay: $20.00
+pre-tax amount: $19.40
+post-tax amount: $16.78
+
